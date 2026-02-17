@@ -13,7 +13,7 @@ import (
 	"github.com/mattn/go-tty"
 )
 
-const version = "0.0.1"
+const version = "0.0.2"
 
 func main() {
 	if err := run(os.Args[1:]); err != nil {
@@ -87,9 +87,11 @@ func run(argv []string) error {
 		pattern string
 		write   bool
 	)
+	var yes bool
 	fs.StringVar(&file, "f", "", "target file")
 	fs.StringVar(&pattern, "p", "", "regexp pattern with a capture group for the version")
 	fs.BoolVar(&write, "w", false, "write result to file instead of stdout")
+	fs.BoolVar(&yes, "y", false, "skip prompt and use patch (for non-interactive environments)")
 	if err := fs.Parse(argv[parseOffset:]); err != nil {
 		return err
 	}
@@ -130,15 +132,19 @@ func run(argv []string) error {
 	if prompt {
 		result, err := promptTarget(currentVersion, file)
 		if err != nil {
-			return err
-		}
-		switch result {
-		case promptResultPatch:
+			if !yes {
+				return err
+			}
 			patchDelta = 1
-		case promptResultMinor:
-			minorDelta = 1
-		case promptResultMajor:
-			majorDelta = 1
+		} else {
+			switch result {
+			case promptResultPatch:
+				patchDelta = 1
+			case promptResultMinor:
+				minorDelta = 1
+			case promptResultMajor:
+				majorDelta = 1
+			}
 		}
 	}
 
