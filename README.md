@@ -37,40 +37,69 @@ bump (major|minor|patch|up|set <version>|show) -f <file> -p <pattern> [-w]
 
 ## Examples
 
-Suppose you have a source file `version.go`:
+### package.json
+
+```json
+{
+  "name": "my-app",
+  "version": "1.2.3"
+}
+```
+
+```bash
+bump patch -w -f package.json -p '"version":\s*"(\d+\.\d+\.\d+)"'
+```
+
+### pyproject.toml
+
+```toml
+[project]
+name = "my-app"
+version = "1.2.3"
+```
+
+```bash
+bump minor -w -f pyproject.toml -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
+```
+
+### Cargo.toml
+
+```toml
+[package]
+name = "my-app"
+version = "1.2.3"
+```
+
+```bash
+bump major -w -f Cargo.toml -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
+```
+
+### Go source
 
 ```go
-package main
-
 const version = "1.2.3"
 ```
 
 ```bash
-# Show current version
-bump show -f version.go -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
-# Output: 1.2.3
-
-# Bump patch version (prints modified file to stdout)
-bump patch -f version.go -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
-
-# Bump minor version and write to file
-bump minor -w -f version.go -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
-
-# Interactive prompt
-bump up -w -f version.go -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
-
-# Set exact version
-bump set 2.0.0 -w -f version.go -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
+bump patch -w -f version.go -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
 ```
 
-Works with any file format — JSON, YAML, TOML, Markdown, etc.:
+### Interactive prompt
 
 ```bash
-# package.json
-bump patch -w -f package.json -p '"version":\s*"(\d+\.\d+\.\d+)"'
+bump up -w -f package.json -p '"version":\s*"(\d+\.\d+\.\d+)"'
+```
 
-# Cargo.toml
-bump patch -w -f Cargo.toml -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
+### Set exact version
+
+```bash
+bump set 2.0.0 -w -f pyproject.toml -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
+```
+
+### Show current version
+
+```bash
+bump show -f Cargo.toml -p 'version\s*=\s*"(\d+\.\d+\.\d+)"'
 ```
 
 ## License
@@ -79,4 +108,4 @@ MIT
 
 ## Author
 
-Yasuhiro Matsumoto (a.k.a. mattn)
+mattn
