@@ -2,8 +2,6 @@
 
 Bump semantic version in any file using a regular expression pattern.
 
-https://github.com/user-attachments/assets/ce1f0180-0fe6-4d27-b8da-78d42bd3c6ba
-
 Inspired by [gobump](https://github.com/x-motemen/gobump), but works with any file format.
 
 ## Installation
