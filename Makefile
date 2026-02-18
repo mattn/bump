@@ -5,4 +5,5 @@ bump:
 		[ -n "$$VERSION" ] && \
 		git commit -am "bump version to $$VERSION" && \
 		git tag "v$$VERSION" && \
+		git push origin main && \
 		git push origin "v$$VERSION"
