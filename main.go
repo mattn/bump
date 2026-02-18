@@ -13,7 +13,7 @@ import (
 	"github.com/mattn/go-tty"
 )
 
-const version = "0.0.4"
+const version = "0.0.5"
 
 func main() {
 	if err := run(os.Args[1:]); err != nil {
