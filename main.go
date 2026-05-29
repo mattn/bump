@@ -10,7 +10,7 @@ import (
 
 	"github.com/Masterminds/semver/v3"
 	"github.com/manifoldco/promptui"
-	"github.com/mattn/go-tty"
+	"github.com/mattn/go-tty/v2"
 )
 
 const version = "0.0.5"
